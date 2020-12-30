@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  payment1:
+    build: ./payment1
+    # ports:
+    # - "5001:5000"
+  payment2:
+    build: ./payment1
+
+  order1:
+    build: ./order
+    # ports:
+    # - "5002:5000"
+  order2:
+    build: ./order
+
+  lb:
+    build: ./nginx
+    ports:
+    - "8080:80"
+    depends_on:
+    - payment1
+    - payment2
+    - order1
+    - order2
